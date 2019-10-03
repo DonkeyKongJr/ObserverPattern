@@ -5,8 +5,8 @@ namespace src
 {
     public class NewsHandler : IObservable<News>
     {
-        private IList<IObserver<News>> observers;
-        private IList<News> newsList;
+        private readonly IList<IObserver<News>> observers;
+        private readonly IList<News> newsList;
 
         public NewsHandler()
         {
@@ -21,7 +21,9 @@ namespace src
                 observers.Add(observer);
                 // Provide observer with existing data.
                 foreach (var item in newsList)
+                {
                     observer.OnNext(item);
+                }
             }
             return new Unsubscriber<News>(observers, observer);
         }
@@ -31,8 +33,11 @@ namespace src
             if (newNews.Id > 0 && !newsList.Contains(newNews))
             {
                 newsList.Add(newNews);
+
                 foreach (var observer in observers)
+                {
                     observer.OnNext(newNews);
+                }
             }
         }
     }

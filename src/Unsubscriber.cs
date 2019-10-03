@@ -5,8 +5,8 @@ namespace src
 {
     public class Unsubscriber<News> : IDisposable
     {
-        private IList<IObserver<News>> _observers;
-        private IObserver<News> _observer;
+        private readonly IList<IObserver<News>> _observers;
+        private readonly IObserver<News> _observer;
 
         internal Unsubscriber(IList<IObserver<News>> observers, IObserver<News> observer)
         {
@@ -17,7 +17,9 @@ namespace src
         public void Dispose()
         {
             if (_observers.Contains(_observer))
+            {
                 _observers.Remove(_observer);
+            }
         }
     }
 }

@@ -6,29 +6,31 @@ namespace src
     public class NewsPaper : IObserver<News>
     {
         public IList<string> newsInfo = new List<string>();
-        private string name;
+        private string _name;
         private IDisposable cancellation;
 
         public NewsPaper(string name)
         {
             if (String.IsNullOrEmpty(name))
+            {
                 throw new ArgumentNullException("The observer must be assigned a name.");
+            }
 
-            this.name = name;
+            _name = name;
         }
 
-        public virtual void Subscribe(NewsHandler provider)
+        public void Subscribe(NewsHandler provider)
         {
             cancellation = provider.Subscribe(this);
         }
 
-        public virtual void Unsubscribe()
+        public void Unsubscribe()
         {
             cancellation.Dispose();
             newsInfo.Clear();
         }
 
-        public virtual void OnCompleted()
+        public void OnCompleted()
         {
             newsInfo.Clear();
         }
