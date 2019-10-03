@@ -58,7 +58,7 @@ namespace test
             newsPaperOne.newsInfo.Should().BeEmpty();
         }
 
-        private IList<News> GenerateTestNews()
+        private static IList<News> GenerateTestNews()
         {
             var ids = 1;
 

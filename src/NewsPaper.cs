@@ -6,7 +6,9 @@ namespace src
     public class NewsPaper : IObserver<News>
     {
         public IList<string> newsInfo = new List<string>();
-        private string _name;
+
+        public string Name { get; }
+
         private IDisposable cancellation;
 
         public NewsPaper(string name)
@@ -16,7 +18,7 @@ namespace src
                 throw new ArgumentNullException("The observer must be assigned a name.");
             }
 
-            _name = name;
+            Name = name;
         }
 
         public void Subscribe(NewsHandler provider)
@@ -40,9 +42,9 @@ namespace src
             throw new NotImplementedException();
         }
 
-        public void OnNext(News news)
+        public void OnNext(News value)
         {
-            newsInfo.Add(news.ToString());
+            newsInfo.Add(value.ToString());
         }
     }
 }
